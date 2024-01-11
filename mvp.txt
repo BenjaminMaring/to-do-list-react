@@ -1,0 +1,14 @@
+Minimum Viable Product requirements
+
+Functional requirements
+    - Add Tasks
+    - View Tasks
+    - Edit Tasks
+    - Delete Tasks
+    - Complete Tasks
+    - Organize Tasks based on categories
+
+Stretch Goals
+    - Add reminder notifications
+    - Share task list with others?
+    - Sync data across devices and users?

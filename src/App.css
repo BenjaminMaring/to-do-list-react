@@ -1,0 +1,177 @@
+.app--body-wrapper {
+  height: calc(100vh - 60px);
+  display: flex;
+}
+
+.header--wrapper {
+  width: 100%;
+  height: 60px;
+  background-color: #DC4C3E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header--wrapper > h2{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  padding: 0px 20px;
+}
+
+.header--search {
+  height: 35px;
+  width: 200px;
+  border-radius: 9px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  padding-left: 40px;
+  font-size: 1.3rem;
+}
+
+.header--search-wrapper {
+  position: relative;
+}
+
+.header--search-wrapper::after {
+  content: "\f002";
+  font-family: 'FontAwesome';
+  position: absolute;
+  left: 10px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.header--search-position {
+  position: relative;
+}
+
+div.header--search-answers {
+  position: absolute;
+  width: 100%;
+  background-color: blue;
+  display: none;
+}
+
+/* CSS FOR SIDEBAR COMPONENT */
+
+.sidebar--outer-wrapper {
+  max-width: 250px;
+  height: 100%;
+  background-color: #E6E6E6;
+}
+
+.sidebar--inner-wrapper {
+  padding: 30px 15px 0 15px;
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar--title-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar--title-wrapper > h3 {
+  font-size: 1.7rem;
+  padding: 10px 0;
+}
+
+.sidebar--title-wrapper > button {
+  border: none;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  color: green;
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar--title-wrapper > button:hover {
+  font-size: 2rem;
+  transition: font-size 100ms ease-in;
+}
+
+.sidebar--list-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar--list-wrapper > button {
+  font-size: 1.4rem;
+  margin-left: 30px;
+  padding: 10px 0;
+  line-height: .8;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+}
+
+.sidebar--list-wrapper > button:hover {
+  text-decoration: underline #DC4C3E;
+}
+
+/* CSS FOR THE LIST COMPONENT */
+
+.list--wrapper {
+  width: 100%;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+}
+.list--title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.list--title > h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 3rem;
+}
+
+.list--title > button {
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 100ms linear;
+  border-radius: 40%;
+}
+
+.list--title > button:hover {
+  background-color: #e6e6e6;
+  transition: background-color 100ms linear;
+}
+
+.list---title > button > i {
+  font-size: 3rem;
+}
+
+.list--task-wrapper {
+  padding: 20px;
+}
+
+.list--task-title-wrapper {
+  display: flex;
+}
+
+.list--task-title-wrapper > h6 {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.list--task-title-wrapper > button {
+  border: none;
+  font-size: 1.5rem;
+  margin-left: 10px;
+  background-color: transparent;
+}
