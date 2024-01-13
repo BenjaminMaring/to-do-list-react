@@ -3,29 +3,39 @@ import '../app.css'
 
 export default function Sidebar(props) {
 
-    const personalLists = props.lists.personal_lists.map(item => {
-        return <button onClick={props.goToList} id={item.id} key={item.id}>{item.listName}</button>
-    })
-    const collaberations = props.lists.collaborations.map(item => {
-        return <button onClick={props.goToList} id={item.id} key={item.id}>{item.listName}</button>
+          const personal = props.lists.filter(list => list.listType === "personal")
+    const collaberations = props.lists.filter(list => list.listType === "collaboration")
+
+    const personalElems = personal.map(list => {
+        return <button onClick={props.changeList} 
+                       id={list.id} 
+                       key={list.id}
+                       >{list.name}</button>
     })
 
+    const collaberationElems = collaberations.map(list => {
+        return <button onClick={props.changeList} 
+                       id={list.id} 
+                       key={list.id}
+                       >{list.name}</button>
+    })
+    
     return (
         <div className="sidebar--outer-wrapper">
             <div className="sidebar--inner-wrapper">
                 <div className="sidebar--title-wrapper">
                     <h3>Your Lists</h3>
-                    <button onClick={() => {props.add("personal_lists")}}>+</button>
+                    <button>+</button>
             </div>
                 <div className="sidebar--list-wrapper">
-                    {personalLists}
+                    {personalElems}
                 </div>
                 <div className="sidebar--title-wrapper">
                     <h3>Collaborations</h3>
-                    <button onClick={() => {props.add("collaborations")}}>+</button>
+                    <button >+</button>
                 </div>
                 <div className="sidebar--list-wrapper">
-                    {collaberations}
+                    {collaberationElems}
                 </div>
             </div>
         </div>

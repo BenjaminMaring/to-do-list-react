@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Header from './Components/Header'
 import Sidebar from './Components/Sidebar'
 import List from './Components/List'
@@ -6,98 +6,57 @@ import './App.css'
 import data from './data'
 
 function App() {
-  const [userData, setUserData] = useState(data);
-  const [currentList, setCurrentList] = useState(userData.lists.personal_lists[0]);
+  const [listData, setListData] = React.useState([]);
+  const [listIndex, setListIndex] = React.useState(0)
 
-  //gets the index of a list
-  //takes in two paramaters, first the id of the list, and then the type of list to determine which array to look in.
-  function getListIndex(id, listType) {
-    if (listType === "personal_lists") {
-      return userData.lists.personal_lists.findIndex(obj => {
-        return (obj.id === id);
-      })
-    } else {
-      return userData.lists.collaborations.findIndex(obj => {
-        return (obj.id === id);
-      })
-    }
-  }
-
-
-  //this function changes the currentList state to the new list that needs to be displayed.
-  //It first finds the index of the list in the data array depending on which list array it is in, and then sets the state to it.
-  function changeList(event) {
-    if (event.target.id[0] === "p") {
-      let i = getListIndex(event.target.id, "personal_lists");
-      setCurrentList(userData.lists.personal_lists[i]);
-    } else {
-      let i = getListIndex(event.target.id, "collaberations");
-      setCurrentList(userData.lists.collaborations[i]);
-    }
-  }
-
-
-
-  //is used when adding a new list. it gets passed to the sideBar component for the buttons to add a list
-  function addList(category) {
-    const random = category === "personal_list" ? "p" : "c" + Math.floor(Math.random() *1000);
-    setUserData(prevData => {
-      return {...prevData, lists: { 
-                ...prevData.lists, [category]: [
-                ...prevData.lists[category], 
-                { id: random, listName: "New List", data: []} 
-                ] 
-              } 
-            }
-    })
-  }
-
-
-
-  //this function changes the status of a task, to show wether or not a task is completed.
-  //It creates a new array for the data inside a task.
-  function toggleCompleted(event) {
-    let targetId = event.target.parentElement.id;
-    
-    // get the correct data array for the current list
-    let newListData = currentList.data.map(task => {
-      return task.taskId === targetId ? {...task, isCompleted: !task.isCompleted} : task;
-    }) 
-
-    //get the list type
-    let listType = currentList.id[0] === "p" ? "personal_lists" : "collaborations";
-    
-    //creates the new data for the entire lists of that type
-    let newGroupData = userData.lists[listType].map(list => {
-      return (list.id === currentList.id ? ({...list, data: newListData}) : list)
-    })
-    
-    
-    //change the userData state to have the correct data
-    setUserData(prevData => {
-      return({
-        ...prevData, 
-        lists: {
-          ...prevData.lists,
-          [listType]: newGroupData
-        }
-      })
-    })
-    
-    //lastly, update the currentList state to show the correct updated list
-    let i = getListIndex(currentList.id, listType);
-    setCurrentList(userData.lists[listType][i]);
-    
-  }//end toggleCompleted
+  //sets the userData to our data initially, just on initial app load
+  React.useEffect(() => {
+    setListData(data.lists);
+  }, [])
   
-  const listData = userData.lists;
+  //takes in an ID of a list, and finds its index
+  function getIndex(id) {
+    return listData.findIndex(list => {
+      return list.id === id
+    })
+  }
+
+  function changeList(event) {
+    let i = getIndex(event.target.id);
+    setListIndex(i);
+  }
+
+  //is used to toggle the completed status of each task.
+  function toggleCompleted(id, taskId) {
+    //gets the index of the list, then maps through its data replacing it with the updated version
+    const index = getIndex(id);
+    const newData = listData[index].data.map(task => {
+      return (task.taskId === taskId ? {...task, isCompleted: !task.isCompleted} : task)
+    })
+    //updates the listData to have the correct data for that task by mapping through the array
+    setListData(prevData => {
+      return (prevData.map(list => {
+        return (list.id === id ? {...list, data: newData} : list)
+      }))
+    })
+  }
+
+
+
+
 
   return (
     <>
-      <Header data={listData} />
+      <Header />
       <div className="app--body-wrapper">
-        <Sidebar lists={listData} add={addList} goToList={changeList}/>
-        <List list={currentList} toggleCompleted={toggleCompleted}/>
+        <Sidebar lists={listData} changeList={changeList}/>
+        {
+          listData.length > 0
+          ? <List list={listData[listIndex]} toggleCompleted={toggleCompleted}/>
+          : <div>
+              Please create a new note
+            </div>
+        }
       </div>
     </>
   )
