@@ -7,13 +7,19 @@ export default function List(props) {
             return (
                 <div className="list--task-wrapper" key={task.taskId}>
                     <div className="list--task-title-wrapper">
-                        <h6>{task.taskName}</h6>
-                        <button onClick={() => props.toggleCompleted(props.list.id, task.taskId)} >{task.isCompleted 
-                            ? <i className="fa-regular fa-square-check"></i> 
-                            : <i className="fa-regular fa-square"></i>
-                        }</button>
+                        <input 
+                            className="list-task-title" 
+                            
+                            value={task.taskName} 
+                            onChange={(event) => {props.updateTaskName(event.target.value, task.taskId)}}></input>
+                        <textarea 
+                            className="list--task-desc" 
+                            value={task.desc ? task.desc : "Please Enter A Description"}
+                            onChange={props.updateTaskDesc}></textarea>
                     </div>
-                    <p>{task.desc}</p>
+                    {task.isCompleted 
+                    ? <button className="list--end list--completed" onClick={() => props.toggleCompleted(props.list.id, task.taskId)}>Complete</button>
+                    : <button className="list--end list--incomplete" onClick={() => props.toggleCompleted(props.list.id, task.taskId)}>Incomplete</button> }
                 </div>
             )
         })
@@ -21,10 +27,12 @@ export default function List(props) {
     return (
         <div className="list--wrapper">
             <div className="list--title">
-                <h1>{props.list.name}</h1>
+                <input type="text" placeholder="Please enter a name" value={props.list.name} onChange={(event) => props.updateListName(event.target.value, props.list.id)}></input>
                 <button><i className="fa-solid fa-ellipsis"></i></button>
             </div>
+            <div className="list--card-wrapper">
             {tasksElem}
+            </div>
         </div>
     )
 }

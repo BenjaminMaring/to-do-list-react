@@ -1,22 +1,29 @@
+:root {
+  --bg-orange: #d3382a;
+  --green: #2FD82C;
+  --text-dark: #383838;
+  --font: 'Roboto', sans-serif;
+}
+
+.app-outer-wrapper {
+  display: flex;
+}
+
 .app--body-wrapper {
   height: calc(100vh - 60px);
   display: flex;
+  flex-direction: column;
 }
 
+/* css for the header class */
 .header--wrapper {
-  width: 100%;
+  width: calc(100vw - 250px);
   height: 60px;
-  background-color: #DC4C3E;
+  background-color: var(--bg-orange);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-}
-
-.header--wrapper > h2{
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  font-size: 2rem;
-  padding: 0px 20px;
+  
 }
 
 .header--search {
@@ -58,34 +65,43 @@ div.header--search-answers {
 /* CSS FOR SIDEBAR COMPONENT */
 
 .sidebar--outer-wrapper {
-  max-width: 250px;
-  height: 100%;
-  background-color: #E6E6E6;
+  width: 250px;
+  height: 100vh;
+  background-color: var(--bg-orange);
 }
 
 .sidebar--inner-wrapper {
-  padding: 30px 15px 0 15px;
+  padding: 15px 15px 0 15px;
   color: var(--text);
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font);
 }
 
-.sidebar--title-wrapper {
+.sidebar-app-title {
+  color: white;
+  font-size: 2.3rem;
+  margin-bottom: 40px;
+}
+
+.sidebar--list-title-wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.sidebar--title-wrapper > h3 {
+.sidebar--list-title-wrapper > h3 {
   font-size: 1.7rem;
   padding: 10px 0;
+  color: white;
+  font-family: var(--font);
+  font-weight: normal;
 }
 
-.sidebar--title-wrapper > button {
+.sidebar--list-title-wrapper > button {
   border: none;
   width: 50px;
   height: 50px;
   background: transparent;
-  color: green;
-  font-size: 1.7rem;
+  color: rgb(0, 179, 0);
+  font-size: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,6 +115,7 @@ div.header--search-answers {
 .sidebar--list-wrapper {
   display: flex;
   flex-direction: column;
+  
 }
 
 .sidebar--list-wrapper > button {
@@ -109,16 +126,16 @@ div.header--search-answers {
   background-color: transparent;
   border: none;
   text-align: left;
+  color: rgb(255, 255, 255);
 }
 
 .sidebar--list-wrapper > button:hover {
-  text-decoration: underline #DC4C3E;
+  text-decoration: underline var(--text-dark);
 }
 
 /* CSS FOR THE LIST COMPONENT */
 
 .list--wrapper {
-  width: 100%;
   padding: 30px 40px;
   display: flex;
   flex-direction: column;
@@ -127,12 +144,18 @@ div.header--search-answers {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  margin-bottom: 20px;
 }
 
-.list--title > h1 {
-  font-family: 'Roboto', sans-serif;
+.list--title > input {
+  font-family: var(--font);
   font-size: 3rem;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+}
+.list--title > input:focus {
+  outline: 0;
 }
 
 .list--title > button {
@@ -157,21 +180,66 @@ div.header--search-answers {
 }
 
 .list--task-wrapper {
-  padding: 20px;
+  width: 250px;
+  height: 300px;
+  border-radius: 9px;
+  background-color: #ffffff;
+  position: relative;
+  box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
 .list--task-title-wrapper {
-  display: flex;
+  padding: 20px;
 }
 
-.list--task-title-wrapper > h6 {
+.list-task-title {
   font-size: 1.5rem;
   font-weight: normal;
+  border: none;
+  background-color: transparent;
+  border-bottom: solid 1px black;
+  width: 100%;
 }
 
-.list--task-title-wrapper > button {
-  border: none;
+.list-task-title:focus {
+  outline: none;
+}
+
+.list--task-desc {
+  font-family: var(--font);
   font-size: 1.5rem;
-  margin-left: 10px;
-  background-color: transparent;
+  width: 100%;
+  height: 190px;
+  border: none;
+  margin-top: 10px;
+}
+
+.list--card-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.list--end {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  color: whitesmoke;
+  font-family: var(--font);
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.list--completed {
+  background-color: var(--green);
+}
+
+.list--incomplete {
+  background-color: var(--bg-orange);
 }
