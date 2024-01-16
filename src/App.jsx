@@ -61,8 +61,18 @@ function App() {
     setListData(prev => prev.map(list => list.id === listId ? {...list, data: newData} : list))
   }
 
-  function updateTaskDesc() {
+  function updateTaskDesc(value, taskId) {
+    //get new task data array, and the id of the list
+    const newData = listData[listIndex].data.map(task => task.taskId === taskId ? {...task, desc: value} : task); 
+    const listId = listData[listIndex].id;
+    setListData(prev => prev.map(list => list.id === listId ? {...list, data: newData} : list))
+  }
 
+  function addNewTask(listId) {
+    let id = Math.floor(Math.random() * 1000) + "";
+    const newData = [...listData[listIndex].data, {taskName: "New Task", taskId: id, desc: "", isCompleted: false} ]
+    id = listData[listIndex].id;
+    setListData(prev => prev.map(list => list.id === id ? {...list, data: newData} : list))
   }
 
   return (
@@ -76,8 +86,9 @@ function App() {
                   toggleCompleted={toggleCompleted} 
                   updateListName={updateListName}
                   updateTaskName={updateTaskName}
-                  updateTaskDesc={updateTaskDesc}/>
-                  
+                  updateTaskDesc={updateTaskDesc}
+                  addNewTask={addNewTask}
+                />
               : <div>
               Please create a new note
               </div>
