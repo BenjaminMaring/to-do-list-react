@@ -10,15 +10,16 @@
 }
 
 .app--body-wrapper {
-  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  max-height: 100vh;
 }
 
 /* css for the header class */
 .header--wrapper {
   width: calc(100vw - 250px);
-  height: 60px;
+  min-height: 60px;
   background-color: var(--bg-orange);
   display: flex;
   justify-content: center;
@@ -139,7 +140,11 @@ div.header--search-answers {
   padding: 30px 40px;
   display: flex;
   flex-direction: column;
+  max-height: 100%;
+  
+  overflow-y: auto;
 }
+
 .list--title {
   display: flex;
   justify-content: space-between;
@@ -183,8 +188,6 @@ div.header--search-answers {
   position: absolute;
   right: 0px;
   width: 200px;
-  
-  background-color: blue;
   z-index: 5;
 }
 
@@ -244,6 +247,7 @@ div.header--search-answers {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  min-height: 100px;
 }
 
 .list--end {
@@ -273,4 +277,57 @@ div.header--search-answers {
 .list--option-menu {
   position: absolute;
   inset: 50%;
+  background-color: transparent;
+}
+
+.list--options-btn {
+  border: none;
+  font-family: var(--font);
+  color: whitesmoke;
+  padding: 5px 0;
+}
+
+.list--new-task-btn {
+  background-color: green;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+
+.list--delete-list-btn {
+  background-color: var(--bg-orange);
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.list--delete-task-btn {
+  position: absolute;
+  bottom: 55px;
+  right: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 100ms linear;
+  border: none;
+  color: whitesmoke;
+  font-family: var(var(--font));
+  background-color: var(--bg-orange);
+}
+
+.list--task-wrapper:hover > .list--delete-task-btn{
+  opacity: 100%;
+  transition: opacity 100ms linear;
+}
+
+.no-list--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.no-list--wrapper > h4 {
+  font-size: 2rem;
+  font-family: var(--font);
+  
 }

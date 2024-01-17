@@ -3,7 +3,7 @@ import '../app.css'
 
 export default function List(props) {
     const [showModal, setShowModal] = React.useState(false);
-    
+
     function toggleModal() {
         setShowModal(prev => !prev);
     }
@@ -12,10 +12,12 @@ export default function List(props) {
             return (
                 <div className="list--task-wrapper" key={task.taskId}>
                     <div className="list--task-title-wrapper">
-                        <textarea 
-                            className="list-task-title" 
-                            value={task.taskName} 
-                            onChange={(event) => {props.updateTaskName(event.target.value, task.taskId)}}></textarea>
+                        <div className="list-task-btn-wrapper">
+                            <textarea 
+                                className="list-task-title" 
+                                value={task.taskName} 
+                                onChange={(event) => {props.updateTaskName(event.target.value, task.taskId)}}></textarea>
+                            </div>
                         <textarea 
                             className="list--task-desc" 
                             value={task.desc ? task.desc : "Please Enter A Description"}
@@ -24,6 +26,7 @@ export default function List(props) {
                     {task.isCompleted 
                     ? <button className="list--end list--completed" onClick={() => props.toggleCompleted(props.list.id, task.taskId)}>Complete</button>
                     : <button className="list--end list--incomplete" onClick={() => props.toggleCompleted(props.list.id, task.taskId)}>Incomplete</button> }
+                    <button className={"list--delete-task-btn"} onClick={(e) => props.deleteTask(e, task.taskId)}>Delete</button>
                 </div>
             )
         })
@@ -37,8 +40,8 @@ export default function List(props) {
                     { showModal ? 
                     <div className="list--modal-options">
                         <ul>
-                            <li><button onClick={props.addNewTask}>New Task</button></li>
-                            <li><button>Delete List</button></li>
+                            <li><button onClick={props.addNewTask} className="list--new-task-btn list--options-btn">New Task</button></li>
+                            <li><button onClick={props.deleteList} className="list--delete-list-btn list--options-btn">Delete List</button></li>
                         </ul>
                     </div>
                     : null}   
@@ -47,7 +50,6 @@ export default function List(props) {
             <div className="list--card-wrapper">
             {tasksElem}
             </div>
-            
         </div>
     )
 }

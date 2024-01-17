@@ -10,7 +10,7 @@ function App() {
   const [listIndex, setListIndex] = React.useState(0)
 
   React.useEffect(() => {
-    setListData(data.lists);
+    // I plan on getting this hooked into firebase, for now it will always start with an empty array
   }, [])
   
   //takes in an ID of a list, and finds its index
@@ -26,7 +26,7 @@ function App() {
 
   //adds a new list and assigns the respective type of list
   function addList(type) {
-    const id = Math.floor(Math.random() * 1000) + "";
+    const id = crypto.randomUUID() + ""; 
     setListData(prevData => {
       return [...prevData, 
               {id: id, 
@@ -38,6 +38,11 @@ function App() {
     })
   }
 
+  function deleteList() {
+    const id = listData[listIndex].id;
+    setListData(prev => prev.filter(list => list.id !== id));
+  }
+
   //is used when changing the title of a list
   //It maps through the list data array, updating the list with the new name
   function updateListName(value, listId) {
@@ -45,12 +50,12 @@ function App() {
   }
 
   //is used to toggle the completed status of each task.
+  //gets the index of the list, then maps through its data replacing it with the updated version
+  //updates the listData to have the correct data for that task by mapping through the array
   function toggleCompleted(id, taskId) {
-    //gets the index of the list, then maps through its data replacing it with the updated version
-    const newData = listData[getIndex(id)].data.map(task => {
-      return (task.taskId === taskId ? {...task, isCompleted: !task.isCompleted} : task)
-    })
-    //updates the listData to have the correct data for that task by mapping through the array
+    const newData = listData[getIndex(id)].data.map(task => (
+      task.taskId === taskId ? {...task, isCompleted: !task.isCompleted} : task
+    ))
     setListData(prevData => prevData.map(list => list.id === id ? {...list, data: newData} : list))
   }
 
@@ -68,18 +73,29 @@ function App() {
     setListData(prev => prev.map(list => list.id === listId ? {...list, data: newData} : list))
   }
 
+  //creates a new task with a random Id, and add it to a new array after spreading the current list data,
+  //then get the id of the current list and use .map to create the correct up to date version of the task
   function addNewTask(listId) {
-    let id = Math.floor(Math.random() * 1000) + "";
+    let id = crypto.randomUUID() + "";
     const newData = [...listData[listIndex].data, {taskName: "New Task", taskId: id, desc: "", isCompleted: false} ]
     id = listData[listIndex].id;
     setListData(prev => prev.map(list => list.id === id ? {...list, data: newData} : list))
   }
 
+  //similar to add new task, however it filters out the task that needs to be deleted to get the new data.
+  function deleteTask(event, taskId) {
+    const newData = listData[listIndex].data.filter(task => task.taskId !== taskId)
+    const id = listData[listIndex].id;
+    setListData(prev => prev.map(list => list.id === id ? {...list, data: newData} : list))
+  }
+
+  
+
   return (
     <div className="app-outer-wrapper">
       <Sidebar lists={listData} changeList={changeList} addList={addList}/>
         <div className="app--body-wrapper">
-          <Header />
+          <Header listData={listData[listIndex]} />
             {
               listData.length > 0
               ? <List list={listData[listIndex]} 
@@ -88,9 +104,11 @@ function App() {
                   updateTaskName={updateTaskName}
                   updateTaskDesc={updateTaskDesc}
                   addNewTask={addNewTask}
+                  deleteTask={deleteTask}
+                  deleteList={deleteList}
                 />
-              : <div>
-              Please create a new note
+              : <div className="no-list--wrapper">
+                  <h4>Please Create A New List</h4>
               </div>
             }
         </div>
