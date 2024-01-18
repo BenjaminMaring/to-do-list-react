@@ -89,8 +89,6 @@ function App() {
     setListData(prev => prev.map(list => list.id === id ? {...list, data: newData} : list))
   }
 
-  
-
   return (
     <div className="app-outer-wrapper">
       <Sidebar lists={listData} changeList={changeList} addList={addList}/>

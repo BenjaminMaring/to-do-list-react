@@ -11,13 +11,13 @@ export default function Sidebar(props) {
         return <button onClick={props.changeList} 
                        id={list.id} 
                        key={list.id}
-                       >{list.name ? list.name : "List"}</button>
+                       >{list.name ? list.name : "Personal List"}</button>
     })
     const collaberationElems = collaberations.map(list => {
         return <button onClick={props.changeList} 
                        id={list.id} 
                        key={list.id}
-                       >{list.name}</button>
+                       >{list.name ? list.name : "Collaborative List"}</button>
     })
     
     return (
