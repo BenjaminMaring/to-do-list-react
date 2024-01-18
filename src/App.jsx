@@ -1,8 +1,8 @@
 import React from 'react'
-import Header from './Components/Header'
 import Sidebar from './Components/Sidebar'
+import AppBody from './Components/AppBody'
+import Header from './Components/Header'
 import List from './Components/List'
-import data from './data'
 import './App.css'
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   const [listIndex, setListIndex] = React.useState(0)
 
   React.useEffect(() => {
-    // I plan on getting this hooked into firebase, for now it will always start with an empty array
+    // setListData(data.lists);
   }, [])
   
   //takes in an ID of a list, and finds its index
@@ -94,24 +94,17 @@ function App() {
   return (
     <div className="app-outer-wrapper">
       <Sidebar lists={listData} changeList={changeList} addList={addList}/>
-        <div className="app--body-wrapper">
-          <Header listData={listData[listIndex]} />
-            {
-              listData.length > 0
-              ? <List list={listData[listIndex]} 
-                  toggleCompleted={toggleCompleted} 
-                  updateListName={updateListName}
-                  updateTaskName={updateTaskName}
-                  updateTaskDesc={updateTaskDesc}
-                  addNewTask={addNewTask}
-                  deleteTask={deleteTask}
-                  deleteList={deleteList}
-                />
-              : <div className="no-list--wrapper">
-                  <h4>Please Create A New List</h4>
-              </div>
-            }
-        </div>
+      <AppBody 
+        listData={listData}
+        list={listData[listIndex]}
+        toggleCompleted={toggleCompleted} 
+        updateListName={updateListName}
+        updateTaskName={updateTaskName}
+        updateTaskDesc={updateTaskDesc}
+        addNewTask={addNewTask}
+        deleteTask={deleteTask}
+        deleteList={deleteList}
+      />
     </div>
   )
 }

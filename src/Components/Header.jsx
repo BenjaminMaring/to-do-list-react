@@ -1,21 +1,14 @@
 import React from 'react';
 import '../app.css'
 
-export default function Header(props) {
+export default function Header({ updateSearch }) {
+    
 
     return (
         <div className="header--wrapper">
             <div className="header--search-position">
                 <div className="header--search-wrapper">
-                    <input className="header--search" type="text" name="search" placeholder='Search' onChange={props.filter}/>
-                </div>
-                <div className="header--search-answers">
-                    test <br></br>
-                    test <br></br>
-                    test <br></br>
-                    test <br></br>
-                    test <br></br>
-                    test <br></br>
+                    <input className="header--search" type="text" name="search" placeholder='Search' onChange={updateSearch}/>
                 </div>
             </div>
         </div>
