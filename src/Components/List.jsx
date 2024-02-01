@@ -2,12 +2,6 @@ import React from "react";
 import '../app.css'
 
 export default function List(props) {
-    const [showModal, setShowModal] = React.useState(false);
-    
-
-    function toggleModal() {
-        setShowModal(prev => !prev);
-    }
 
     const tasksElem = props.tasks.map(task => {
             return (
@@ -21,7 +15,8 @@ export default function List(props) {
                             </div>
                         <textarea 
                             className="list--task-desc" 
-                            value={task.desc ? task.desc : "Please Enter A Description"}
+                            placeholder="Please Enter A Description"
+                            value={task.desc ? task.desc : ""}
                             onChange={(event) => {props.updateTaskDesc(event.target.value, task.taskId)}}></textarea>
                     </div>
                     {task.isCompleted 
@@ -37,8 +32,8 @@ export default function List(props) {
             <div className="list--title">
                 <input type="text" placeholder="Please enter a name" value={props.listName} onChange={(event) => props.updateListName(event.target.value, props.listId)}></input>
                 <div className="list--modal">
-                    <button onClick={toggleModal}><i className="fa-solid fa-ellipsis"></i></button>
-                    { showModal ? 
+                    <button onClick={() => props.toggleModal()}><i className="fa-solid fa-ellipsis list--modal-size"></i></button>
+                    { props.showModal ? 
                     <div className="list--modal-options">
                         <ul>
                             <li><button onClick={props.addNewTask} className="list--new-task-btn list--options-btn">New Task</button></li>

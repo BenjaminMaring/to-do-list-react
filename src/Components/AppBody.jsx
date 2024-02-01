@@ -5,7 +5,7 @@ import List from './List'
 export default function AppBody({listData, list, toggleCompleted, 
                                 updateListName, updateTaskName, 
                                 updateTaskDesc, addNewTask, deleteTask, 
-                                deleteList}) {
+                                deleteList, showModal, toggleModal}) {
     const [search, setSearch] = React.useState("");
     
     function updateSearch(e) {
@@ -38,6 +38,8 @@ export default function AppBody({listData, list, toggleCompleted,
                 addNewTask={addNewTask}
                 deleteTask={deleteTask}
                 deleteList={deleteList}
+                showModal={showModal}
+                toggleModal={toggleModal}
             />
             : <div className="no-list--wrapper">
                 <h4>Please Create A New List</h4>

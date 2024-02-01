@@ -176,6 +176,10 @@
   transition: background-color 100ms linear;
 }
 
+.list--modal-size {
+  font-size: 3rem;
+}
+
 .list--modal-options {
   position: absolute;
   right: 0px;

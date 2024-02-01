@@ -8,6 +8,7 @@ import './App.css'
 function App() {
   const [listData, setListData] = React.useState([]);
   const [listIndex, setListIndex] = React.useState(0)
+  const [showModal, setShowModal] = React.useState(false);
 
   React.useEffect(() => {
     // setListData(data.lists);
@@ -21,6 +22,7 @@ function App() {
   //changes the state of listIndex to a new index based off the id of the event target
   function changeList(event) {
     let i = getIndex(event.target.id);
+    setShowModal(false);
     setListIndex(i);
   }
 
@@ -40,6 +42,7 @@ function App() {
 
   function deleteList() {
     const id = listData[listIndex].id;
+    setShowModal(false);
     setListData(prev => prev.filter(list => list.id !== id));
   }
 
@@ -89,6 +92,10 @@ function App() {
     setListData(prev => prev.map(list => list.id === id ? {...list, data: newData} : list))
   }
 
+  function toggleModal() {
+    setShowModal(prev => !prev);
+}
+
   return (
     <div className="app-outer-wrapper">
       <Sidebar lists={listData} changeList={changeList} addList={addList}/>
@@ -102,6 +109,8 @@ function App() {
         addNewTask={addNewTask}
         deleteTask={deleteTask}
         deleteList={deleteList}
+        showModal={showModal}
+        toggleModal={toggleModal}
       />
     </div>
   )
